@@ -24,16 +24,16 @@ El valor -b puede ser omitido si no se requiere la visualización de resultados 
 
 ### Consideraciones Generales
 El programa procesará imagenes solo si estas poseen el nombre:
-> imagen_N.bmp 
+> image_N.bmp 
 
 donde  N especifica el valor numérico de la imagen (1..n).
 La secuencialidad de la lectura de multiples imagenes dependerá de que se siga este orden para cada imagen.
 
 Ejemplo:
-> imagen_1.bmp
-imagen_2.bmp
-imagen_3.bmp
+> image_1.bmp
+image_2.bmp
+image_3.bmp
 .
 .
 .
-imagen_N.bmp
+image_N.bmp
