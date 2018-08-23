@@ -1,6 +1,6 @@
 using namespace std;
-#ifndef BOUNDEDBUFFER1_CPP
-#define BOUNDEDBUFFER1_CPP
+#ifndef BOUNDEDBUFFER_CPP
+#define BOUNDEDBUFFER_CPP
 _Monitor BoundedBuffer {
 		uCondition full, empty;
 		int front, back, count, buf_size;
