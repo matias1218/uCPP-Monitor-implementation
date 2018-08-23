@@ -8,6 +8,13 @@ _Task ConvertToBin {
         BoundedBuffer &BufferOUT; // sched. interno o externo
     public:
         ConvertToBin( BoundedBuffer &bufIN, BoundedBuffer &bufOUT) : BufferIN(bufIN), BufferOUT(bufOUT) {}
+
+        /*  Funcion que convierte una imagen a su modo binario. 
+            ENTRADAS: - La informacion de los pixeles de una imagen.
+                      - La cabecera de informacion de la imagen.
+                      - El umbral en valor pixel, el cual define cuales pixeles deben ser transformados a blanco o negro.
+            SALIDA:   - La informacion de la imagen (pixeles) binarizada.
+        */
         unsigned char *convertToBinary(unsigned char* imgdata, bmpInfoHeader* bInfoHeader, int umbral){
 
             unsigned char* blackWhite = (unsigned char*)malloc(sizeof(unsigned char)*bInfoHeader->imgsize);
@@ -37,12 +44,17 @@ _Task ConvertToBin {
         msge item;
         unsigned char *binary;
         for (int i = 1;;i++) {
+
+            // se extrae un nodo de imagen desde el buffer (consumidor)
             item = BufferIN.remove();
+             // verificacion de termino de ciclo
             if(item.finish == 1){
                 break;
             }
             binary = convertToBinary(item.img,item.info,item.umbral);
             item.img = binary;
+
+            // se inserta una imagen en el buffer de imagen (productor)
             BufferOUT.insert( item );
             yield( rand() % 20 );
         }

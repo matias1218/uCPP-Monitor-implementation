@@ -16,6 +16,13 @@ _Task ReadRGB {
             this->ratio = ratio;
         }
         
+        /*  Funcion que lee un archivo de imagen y extrae la informacion de los pixeles para poder ser manipulados. 
+            ENTRADAS: - Un archivo de tipo ".bmp".
+                      - La cabecera de informacion de la imagen.
+                      - La cabecera del fichero de la imagen procesada.
+            SALIDA:   - La informacion de la imagen de un archivo de imagen ".bmp".
+        */
+
         unsigned char *readRGB(FILE* file, bmpInfoHeader* bInfoHeader,bmpFileHeader* header){
             
             //bmpFileHeader header;     /* cabecera */
@@ -58,18 +65,16 @@ _Task ReadRGB {
         char bufIn[32] = { 0 };
         const char *nameIn = "image_";
         for ( ;; ) {
-            // aqui va el codigo para abrir una imagen y sacar sus datos
-
-            
             for (int i = 1; i <= cantImages; i += 1) {
                 FILE *file;
                 bmpInfoHeader* info = (bmpInfoHeader*)malloc(sizeof(bmpInfoHeader));
                 bmpFileHeader* header = (bmpFileHeader*)malloc(sizeof(bmpFileHeader));
                 unsigned char *img;
-
                 sprintf(bufIn, "%s%d.bmp", nameIn, i);
                 file = fopen(bufIn, "rb");
                 img = readRGB(file,info,header);
+
+                // se crea un nodo mensaje para guardar en el buffer
                 msge message;
                 message.header = header;
                 message.info = info;
@@ -87,12 +92,14 @@ _Task ReadRGB {
 
 
                 yield( rand() % 20 ); // duerma un rato
+
+                // se inserta el nodo en el buffer
                 Buffer.insert( message );
 
                 
 
             }
-            
+
             break;
         }
     }

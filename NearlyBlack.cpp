@@ -8,6 +8,14 @@ _Task NearlyBlack {
         BoundedBuffer &BufferOUT; // sched. interno o externo
     public:
         NearlyBlack(BoundedBuffer &bufIN, BoundedBuffer &bufOUT) : BufferIN(bufIN), BufferOUT(bufOUT) {}
+
+        /*  Funcion que analiza y concluye si una imagen es "cercana a negro". 
+            ENTRADAS: - La informacion de los pixeles de una imagen.
+                      - La cabecera de informacion de la imagen.
+                      - El valor en porcentaje a comparar de pixeles negros en una imagen.
+                      - Una bandera que indica si la informacion de la clasificacion de la imagen se muestra o no en pantalla.
+            SALIDA:   - Un entero especificando si la imagen es cercana a negro o no.
+        */
         int isNearlyBlackOrNot(unsigned char* imgdata, bmpInfoHeader* bInfoHeader, int rate){
 
             
@@ -45,8 +53,10 @@ _Task NearlyBlack {
         const char *nameOut = "image_";
         int flagShow = 0;
         for ( ;; ) {
-
+             // se extrae un nodo de imagen desde el buffer (consumidor)
             item = BufferIN.remove();
+
+            // verificacion de termino de ciclo
             if(item.finish == 1){
                 break;
             }
@@ -68,6 +78,8 @@ _Task NearlyBlack {
                     printf("|   %14s    |        no          |\n",bufOut );
                 }
             }
+
+            // se inserta una imagen en el buffer de imagen (productor)
             BufferOUT.insert( item );
 
 

@@ -8,6 +8,12 @@ _Task ConvertToGray {
         BoundedBuffer &BufferOUT; // sched. interno o externo
     public:
         ConvertToGray(BoundedBuffer &bufIN, BoundedBuffer &bufOUT) : BufferIN(bufIN), BufferOUT(bufOUT){}
+
+        /*  Funcion que convierte una imagen en escala de grises. 
+		    ENTRADAS: - La informacion de los pixeles de una imagen.
+		              - La cabecera de informacion de la imagen.
+		    SALIDA:   - La informacion de la imagen (pixeles) transformada a escala de grises.
+		*/
         unsigned char* convertToGray(unsigned char* imgdata, bmpInfoHeader* bInfoHeader){
 
 		    unsigned char* gray = (unsigned char*)malloc(sizeof(unsigned char)*bInfoHeader->imgsize);
@@ -31,12 +37,17 @@ _Task ConvertToGray {
         msge item;
         unsigned char *gray;
         for ( int i = 1;;i++ ) {
+
+        	// se extrae un nodo de imagen desde el buffer (consumidor)
             item = BufferIN.remove();
+            // verificacion de termino de ciclo
             if(item.finish == 1){
                 break;
             }
             gray = convertToGray(item.img,item.info);
             item.img = gray;
+
+            // se inserta una imagen en el buffer de imagen (productor)
             BufferOUT.insert( item );
             yield( rand() % 20 );
         }
