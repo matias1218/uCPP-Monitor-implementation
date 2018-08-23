@@ -42,7 +42,7 @@ _Task NearlyBlack {
     void main() {
         msge item;
         char bufOut[32] = { 0 };
-        const char *nameOut = "salida_";
+        const char *nameOut = "image_";
         int flagShow = 0;
         for ( ;; ) {
 
