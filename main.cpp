@@ -117,7 +117,7 @@ int main(int argc, char  *argv[]){
 
 	srand (time(NULL));
 	// inicializacion de monitores
-	BoundedBuffer buf1(20); // Monitor 1
+	BoundedBuffer buf1(20); // Monitor 1 que posee 20 elementos
 	BoundedBuffer buf2(20); // Monitor 2
 	BoundedBuffer buf3(20); // Monitor 3
 	BoundedBuffer buf4(20); // Monitor 4
