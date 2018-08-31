@@ -41,7 +41,8 @@ _Task ConvertToGray {
         	// se extrae un nodo de imagen desde el buffer (consumidor)
             item = BufferIN.remove();
             // verificacion de termino de ciclo
-            if(item.finish == 1){
+            if(item.finish == 1 || item.fileNotFound == 1){
+                BufferOUT.insert( item );
                 break;
             }
             gray = convertToGray(item.img,item.info);

@@ -43,7 +43,10 @@ _Task WriteRGB {
             item = Buffer.remove();
 
             // verificador para terminar el ciclo
-            if(item.finish == 1){
+            if(item.finish == 1 || item.fileNotFound == 1){
+                if(item.fileNotFound == 1){
+                  cout<<"Archivo no encontrado, finalizando..." << endl;
+                }
                 break;
             }
             FILE *save;

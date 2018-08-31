@@ -72,15 +72,18 @@ _Task ReadRGB {
                 unsigned char *img;
                 sprintf(bufIn, "%s%d.bmp", nameIn, i);
                 file = fopen(bufIn, "rb");
+                msge message;
                 if (file==NULL)
                 {
-                    cout<<"Archivo no encontrado, finalizando..." << endl;
+                    //cout<<"Archivo no encontrado, finalizando..." << endl;
+                    message.fileNotFound = 1;
+                    Buffer.insert( message );
                     break;
                 }
                 img = readRGB(file,info,header);
 
                 // se crea un nodo mensaje para guardar en el buffer
-                msge message;
+                
                 message.header = header;
                 message.info = info;
                 message.totalImages = cantImages; //cantidad de imagenes a procesar

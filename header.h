@@ -51,4 +51,5 @@ typedef struct msge {
   int flag; // flag para mostrar por pantalla
   int finish; // flag para terminar los procesos
   unsigned char *img; // datos de la imagen actual
+  int fileNotFound = 0;
 } msge;
